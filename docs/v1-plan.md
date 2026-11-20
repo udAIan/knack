@@ -104,7 +104,7 @@ When a skill gets in your way during real work:
 5. `knack finish` merges the branch into `main` with a merge commit that keeps every commit. It pushes `main`, deletes the branch on GitHub and locally, and leaves the folder on `main`.
 6. `knack drop` throws a change away. It goes back to `main` and deletes the branch, and the agent asks you first.
 
-Conflicts at `finish`: the agent fixes them when the intent is clear and asks you when it isn't. Either way, it tells you what it picked before pushing.
+Conflicts at `finish`: `finish` first brings newer skills from GitHub into the change branch, so any conflict is fixed there, and then it runs again. The agent fixes conflicts when the intent is clear and asks you when it isn't. Either way, it tells you what it picked before pushing. If pushing `main` fails, `finish` puts `main` back and leaves you on your branch.
 
 Deleting a skill everywhere is just another change: delete its folder on a branch, then run `review` and `finish`.
 
@@ -167,7 +167,7 @@ Each step works on its own. You can start using knack on real work after step 4.
 2. **Machine install:** the install step, which links `knack` and `knk` and gives the PATH hint, plus `update`.
 3. **Folder setup:** `setup` clones your repo into `.knack/`, starts an empty repo if needed, and writes the exclude lines.
 4. **Choosing skills:** `list`, `install` and `remove`, with links for both agents and the name clash warning.
-5. **Move your skills in:** a one-time job done with an agent, so you have real skills to work with.
+5. **Fill your skills repo:** you create a new repo and add the skills you want.
 6. **Change flow:** `review`, `finish` and `drop`, all checking before they act.
 7. **Updates:** `check`, `pull`, the session-start hooks, and cleanup of dead links.
 8. **Bundled skill:** the `knack` skill and its reference files, installed globally.

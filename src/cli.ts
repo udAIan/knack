@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { drop, finish, review } from "./change.ts";
 import { install } from "./install.ts";
 import { list } from "./list.ts";
 import { remove } from "./remove.ts";
@@ -41,9 +42,9 @@ const COMMANDS: Command[] = [
   { name: "remove", usage: "remove <names...>", summary: "Remove skill links from this folder", run: remove },
   { name: "check", usage: "check", summary: "Check GitHub for updates (run by the session-start hook)" },
   { name: "pull", usage: "pull", summary: "Update main with the latest skills" },
-  { name: "review", usage: "review", summary: "Push your change branch and print a link to it" },
-  { name: "finish", usage: "finish", summary: "Merge your change into main and push it" },
-  { name: "drop", usage: "drop", summary: "Throw away your change branch" },
+  { name: "review", usage: "review", summary: "Push your change branch and print a link to it", run: review },
+  { name: "finish", usage: "finish", summary: "Merge your change into main and push it", run: finish },
+  { name: "drop", usage: "drop", summary: "Throw away your change branch", run: drop },
 ];
 
 main(process.argv.slice(2));
