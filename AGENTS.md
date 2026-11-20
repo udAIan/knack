@@ -11,8 +11,7 @@
 
 ## Product Design
 
-- The product design lives in `docs/`. Read it before changing behavior, and update it when behavior changes.
-- Write plans and design notes as markdown files in `docs/`.
+- `README.md` describes how knack works. Read it before changing behavior, and update it when user-facing behavior changes.
 
 ## Runtime
 

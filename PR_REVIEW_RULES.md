@@ -29,12 +29,12 @@ Rules for LLM-based code review. Flag violations as comments on the relevant lin
 ## Boundary Map
 
 Use this only to orient reviews. The rules below should catch durable
-engineering mistakes, not duplicate the design docs.
+engineering mistakes, not duplicate the README.
 
 - CLI: the commands that run in a user's work folder
 - Installer: the one-time machine install and self-update
 - Bundled skill: the skill that teaches agents how to use the CLI
-- Docs: `docs/`
+- Docs: `README.md`
 
 ## 1. Security
 
@@ -77,7 +77,7 @@ engineering mistakes, not duplicate the design docs.
 
 - [ ] No dead code, commented-out code, or TODO comments without a linked issue
 - [ ] No leftover debug output
-- [ ] Docs are updated when user-facing behavior changes
+- [ ] README.md is updated when user-facing behavior changes
 
 ## 7. AI Agent Instructions
 
