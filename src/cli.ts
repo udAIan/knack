@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+import { install } from "./install.ts";
+import { list } from "./list.ts";
+import { remove } from "./remove.ts";
 import { setup } from "./setup.ts";
 import { update } from "./update.ts";
 
@@ -33,9 +36,9 @@ type Command = { name: string; usage: string; summary: string; run?: (args: stri
 const COMMANDS: Command[] = [
   { name: "update", usage: "update", summary: "Update knack and its bundled skill", run: update },
   { name: "setup", usage: "setup <repo>", summary: "Bring your skills repo into this folder", run: setup },
-  { name: "list", usage: "list", summary: "Show your skills and which ones are installed here" },
-  { name: "install", usage: "install <names...>", summary: "Link skills into this folder" },
-  { name: "remove", usage: "remove <names...>", summary: "Remove skill links from this folder" },
+  { name: "list", usage: "list", summary: "Show your skills and which ones are installed here", run: list },
+  { name: "install", usage: "install <names...>", summary: "Link skills into this folder", run: install },
+  { name: "remove", usage: "remove <names...>", summary: "Remove skill links from this folder", run: remove },
   { name: "check", usage: "check", summary: "Check GitHub for updates (run by the session-start hook)" },
   { name: "pull", usage: "pull", summary: "Update main with the latest skills" },
   { name: "review", usage: "review", summary: "Push your change branch and print a link to it" },
