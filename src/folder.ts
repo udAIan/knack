@@ -1,9 +1,10 @@
-import { existsSync, lstatSync, mkdirSync, readdirSync, readFileSync, readlinkSync, writeFileSync } from "node:fs";
+import { existsSync, lstatSync, mkdirSync, readdirSync, readFileSync, readlinkSync, unlinkSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { git } from "./git.ts";
 
 export const KNACK_DIR = ".knack";
 export const AGENT_SKILL_DIRS = [".claude/skills", ".agents/skills"];
+export const HOOK_FILES = [".claude/settings.local.json", ".codex/hooks.json"];
 
 export const ensureSetUp = () => {
   if (existsSync(join(KNACK_DIR, ".git"))) {
@@ -35,6 +36,23 @@ export const linkState = (agentDir: string, name: string) => {
     return "missing";
   }
   return stat.isSymbolicLink() && readlinkSync(path) === linkTarget(name) ? "ours" : "other";
+};
+
+// A link whose skill was deleted from the repo points at nothing, so it gets removed.
+export const removeDeadLinks = () => {
+  const removed = new Set<string>();
+  for (const agentDir of AGENT_SKILL_DIRS) {
+    if (!existsSync(agentDir)) {
+      continue;
+    }
+    for (const name of readdirSync(agentDir)) {
+      if (linkState(agentDir, name) === "ours" && !existsSync(join(agentDir, name))) {
+        unlinkSync(join(agentDir, name));
+        removed.add(name);
+      }
+    }
+  }
+  return [...removed];
 };
 
 // Hides knack's files from the folder's own git repo, if it is one, without touching the project's .gitignore.
@@ -75,7 +93,8 @@ export const syncExcludes = () => {
           .map((name) => `/${prefix}${agentDir}/${name}`)
       : [],
   );
-  const block = [`${BLOCK_START}${folder}`, `/${prefix}${KNACK_DIR}/`, ...links, BLOCK_END];
+  const hooks = HOOK_FILES.filter((hookFile) => existsSync(hookFile)).map((hookFile) => `/${prefix}${hookFile}`);
+  const block = [`${BLOCK_START}${folder}`, `/${prefix}${KNACK_DIR}/`, ...hooks, ...links, BLOCK_END];
   const next = [...kept, ...(kept.length > 0 ? [""] : []), ...block, ""].join("\n");
   if (next !== current) {
     mkdirSync(dirname(file), { recursive: true });

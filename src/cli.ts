@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import { drop, finish, review } from "./change.ts";
 import { install } from "./install.ts";
 import { list } from "./list.ts";
 import { remove } from "./remove.ts";
 import { setup } from "./setup.ts";
+import { check, drop, finish, pull, review } from "./sync.ts";
 import { update } from "./update.ts";
 
 const main = (args: string[]) => {
@@ -40,8 +40,8 @@ const COMMANDS: Command[] = [
   { name: "list", usage: "list", summary: "Show your skills and which ones are installed here", run: list },
   { name: "install", usage: "install <names...>", summary: "Link skills into this folder", run: install },
   { name: "remove", usage: "remove <names...>", summary: "Remove skill links from this folder", run: remove },
-  { name: "check", usage: "check", summary: "Check GitHub for updates (run by the session-start hook)" },
-  { name: "pull", usage: "pull", summary: "Update main with the latest skills" },
+  { name: "check", usage: "check", summary: "Check GitHub for updates (run by the session-start hook)", run: check },
+  { name: "pull", usage: "pull", summary: "Update main with the latest skills", run: pull },
   { name: "review", usage: "review", summary: "Push your change branch and print a link to it", run: review },
   { name: "finish", usage: "finish", summary: "Merge your change into main and push it", run: finish },
   { name: "drop", usage: "drop", summary: "Throw away your change branch", run: drop },

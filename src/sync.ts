@@ -1,6 +1,76 @@
 import { spawnSync } from "node:child_process";
-import { ensureSetUp, KNACK_DIR } from "./folder.ts";
+import { ensureSetUp, KNACK_DIR, removeDeadLinks, syncExcludes } from "./folder.ts";
 import { git } from "./git.ts";
+
+// Run by the session-start hook: quick, never prompts, and its output goes to the agent.
+export const check = () => {
+  if (!ensureSetUp()) {
+    return;
+  }
+  const removed = removeDeadLinks();
+  syncExcludes();
+
+  const lines = ['This folder\'s skills come from knack (the repo is in .knack/). Use the "knack" skill when changing them.'];
+  if (removed.length > 0) {
+    lines.push(`knack removed links to skills that were deleted from the repo: ${removed.join(", ")}.`);
+  }
+
+  // BatchMode makes ssh fail instead of asking for a passphrase, unless the user set their own ssh command.
+  const sshCommand = process.env.GIT_SSH_COMMAND ?? git(KNACK_DIR, ["config", "core.sshCommand"]).stdout;
+  const env = sshCommand ? process.env : { ...process.env, GIT_SSH_COMMAND: "ssh -o BatchMode=yes -o ConnectTimeout=5" };
+  const fetched = spawnSync("git", ["-C", KNACK_DIR, "fetch", "--quiet", "origin", "main"], {
+    stdio: "ignore",
+    timeout: 8000,
+    env: { ...env, GIT_TERMINAL_PROMPT: "0" },
+  });
+  if (fetched.status === 0) {
+    const behind = Number(git(KNACK_DIR, ["rev-list", "--count", "main..origin/main"]).stdout);
+    if (behind > 0) {
+      lines.push(
+        `GitHub has ${plural(behind, "newer commit")} for this folder's skills. Tell the user, and run "knack pull" only if they say yes.`,
+      );
+    }
+  }
+  console.log(lines.join("\n"));
+};
+
+export const pull = () => {
+  if (!ensureSetUp()) {
+    return;
+  }
+  const branch = git(KNACK_DIR, ["symbolic-ref", "--quiet", "--short", "HEAD"]).stdout;
+  const before = git(KNACK_DIR, ["rev-parse", "main"]).stdout;
+
+  if (branch === "main") {
+    if (!isClean()) {
+      fail('There are uncommitted changes on main in .knack/. Move them to a branch first: "git switch -c <name>" in .knack/.');
+      return;
+    }
+    if (!run(["pull", "--quiet", "--ff-only", "origin", "main"])) {
+      fail('Couldn\'t update main. Fix the git error above, then run "knack pull" again.');
+      return;
+    }
+  } else if (!run(["fetch", "--quiet", "origin", "main:main"])) {
+    fail('Couldn\'t update main. Fix the git error above, then run "knack pull" again.');
+    return;
+  }
+
+  const removed = removeDeadLinks();
+  syncExcludes();
+  const pulled = Number(git(KNACK_DIR, ["rev-list", "--count", `${before}..main`]).stdout);
+  if (pulled === 0) {
+    console.log("Your skills are already up to date.");
+  } else if (branch === "main") {
+    console.log(`Updated your skills (${plural(pulled, "new commit")}).`);
+  } else {
+    console.log(
+      `Updated main (${plural(pulled, "new commit")}). This folder stays on ${branch} and keeps using your change until you finish it.`,
+    );
+  }
+  if (removed.length > 0) {
+    console.log(`Removed links to skills that were deleted from the repo: ${removed.join(", ")}.`);
+  }
+};
 
 export const review = () => {
   const branch = changeBranch();
