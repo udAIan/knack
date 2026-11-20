@@ -1,0 +1,8 @@
+#!/bin/sh
+# Blocks any commit that contains a secret. "pnpm install" turns this folder on (see "prepare" in package.json).
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "gitleaks isn't installed, so this commit can't be checked for secrets. Install it (brew install gitleaks), then commit again." >&2
+  exit 1
+fi
+
+exec gitleaks git --pre-commit --staged --redact --verbose --no-banner .
