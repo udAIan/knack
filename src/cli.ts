@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { setup } from "./setup.ts";
 import { update } from "./update.ts";
 
 const main = (args: string[]) => {
@@ -31,7 +32,7 @@ type Command = { name: string; usage: string; summary: string; run?: (args: stri
 
 const COMMANDS: Command[] = [
   { name: "update", usage: "update", summary: "Update knack and its bundled skill", run: update },
-  { name: "setup", usage: "setup <repo>", summary: "Bring your skills repo into this folder" },
+  { name: "setup", usage: "setup <repo>", summary: "Bring your skills repo into this folder", run: setup },
   { name: "list", usage: "list", summary: "Show your skills and which ones are installed here" },
   { name: "install", usage: "install <names...>", summary: "Link skills into this folder" },
   { name: "remove", usage: "remove <names...>", summary: "Remove skill links from this folder" },
