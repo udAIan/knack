@@ -1,6 +1,6 @@
 ---
 name: knack
-description: Manage this folder's agent skills with the knack CLI. Use in folders set up with knack (a session-start note says so, and the skills repo is in .knack/), or when the user wants to set up a folder with a skills repo, install or remove skills, create, change or delete a skill, review or finish a skill change, or pull skill updates.
+description: Manage this folder's agent skills with the knack CLI. Use only in folders set up with knack (a session-start note says so, and the skills repo is in .knack/), to install or remove skills, create, change or delete a skill, review or finish a skill change, or pull skill updates. Also use when the user asks to set up a folder with a skills repo.
 compatibility: Requires the knack CLI, git with SSH access to GitHub, and Node 22.18 or newer.
 ---
 

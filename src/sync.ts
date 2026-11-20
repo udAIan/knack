@@ -142,7 +142,9 @@ export const finish = () => {
     return;
   }
 
-  run(["branch", "--quiet", "--delete", branch]);
+  // -D, because after "knack review" plain -d compares against the branch's GitHub copy, not main.
+  // It's safe here: the branch was just merged into main and pushed.
+  run(["branch", "--quiet", "-D", branch]);
   if (git(KNACK_DIR, ["rev-parse", "--verify", "--quiet", `refs/remotes/origin/${branch}`]).status === 0) {
     if (!run(["push", "--quiet", "origin", "--delete", branch])) {
       console.warn(`Couldn't delete ${branch} on GitHub. You can delete it there.`);
