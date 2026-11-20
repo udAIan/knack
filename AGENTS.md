@@ -16,7 +16,7 @@
 
 ## Runtime
 
-- TypeScript that Node runs directly: no build step and no npm dependencies. Use Node built-ins only.
+- TypeScript that Node runs directly: no build step and no runtime npm dependencies. Use Node built-ins only. Dev-only type definitions are fine.
 - Support Mac and Linux only.
 - Reach GitHub over SSH only. No HTTPS, tokens, or `gh`.
 

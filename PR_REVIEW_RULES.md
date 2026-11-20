@@ -66,7 +66,7 @@ engineering mistakes, not duplicate the design docs.
 
 ## 5. TypeScript And Code Style
 
-- [ ] Code runs directly on Node with no build step and no npm dependencies; Node built-ins only
+- [ ] Code runs directly on Node with no build step and no runtime npm dependencies; Node built-ins only (dev-only type definitions are fine)
 - [ ] Only TypeScript syntax that Node can run as-is: no enums, namespaces, or other syntax that needs compiling
 - [ ] TypeScript strictness is preserved: no `any`, non-null assertions, or `@ts-ignore` without narrow justification
 - [ ] Main exports appear first; helpers and constants follow in call-flow order

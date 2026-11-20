@@ -38,7 +38,7 @@ The install step:
 
 `knack update` pulls `~/.local/share/knack` over SSH, so the CLI and the bundled skill update together.
 
-knack is written in TypeScript that Node runs directly, with no build step and no npm packages.
+knack is written in TypeScript that Node runs directly, with no build step and nothing to install from npm to run it. Type definitions for editors are a dev-only extra.
 
 ## Set up a folder
 
