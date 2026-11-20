@@ -1,10 +1,10 @@
 # knack v1 plan
 
-As of 2026-11-19. The plan is agreed. No code yet.
+As of 2026-11-19. The plan is agreed, and v1 is built and being tested on real work.
 
 ## What knack is
 
-Your skills live in one private GitHub repo. In any folder where you work, knack brings that repo in as the folder's "brain". It then links the skills you pick, so Claude Code and Codex both use them in that folder.
+Your skills live in GitHub repos called skillsets. Anyone can use knack, and a person can keep as many skillsets as they like, for example one for coding and one for writing. In any folder where you work, knack brings one skillset in as the folder's "brain". It then links the skills you pick, so Claude Code and Codex both use them in that folder.
 
 When a skill gets in your way during real work, you change it right there, try it, and send it back to GitHub. Every other folder can then pull the change.
 
@@ -42,7 +42,7 @@ knack is written in TypeScript that Node runs directly, with no build step and n
 
 ## Set up a folder
 
-First, create an empty private repo for your skills on github.com. You only do this once, because git can't create repos.
+First, create a private repo for the skillset on github.com. It can be empty. You do this once per skillset, because git can't create repos.
 
 Then run `knack setup git@github.com:<you>/<skills-repo>.git` in the folder. It:
 
