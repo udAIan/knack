@@ -158,3 +158,18 @@ This is a one-time job for the agent, not a CLI command. In a folder that's set 
 
 - Claude Code reads `.claude/skills/`, and Codex reads `.agents/skills/`. Both follow links. If Claude Code ever starts reading `.agents/skills/`, knack can drop the `.claude/skills/` link.
 - Codex asks you to approve a new project hook once, using `/hooks`. The hook stays a fixed one-line call to `knack check`, so you only approve it once per folder.
+
+## Build order
+
+Each step works on its own. You can start using knack on real work after step 4.
+
+1. **Skeleton:** the `knack` entry file that Node runs, the command list, and help output.
+2. **Machine install:** the install step, which links `knack` and `knk` and gives the PATH hint, plus `update`.
+3. **Folder setup:** `setup` clones your repo into `.knack/`, starts an empty repo if needed, and writes the exclude lines.
+4. **Choosing skills:** `list`, `install` and `remove`, with links for both agents and the name clash warning.
+5. **Move your skills in:** a one-time job done with an agent, so you have real skills to work with.
+6. **Change flow:** `review`, `finish` and `drop`, all checking before they act.
+7. **Updates:** `check`, `pull`, the session-start hooks, and cleanup of dead links.
+8. **Bundled skill:** the `knack` skill and its reference files, installed globally.
+9. **Dogfood:** use it in two folders and on two machines, and fix whatever gets in the way.
+10. **Publish:** a README with install steps, then make the repo public.
