@@ -64,3 +64,4 @@
 - Never commit or push changes before the user has reviewed them.
 - Never commit or push unless the user explicitly asks for that action in the current turn.
 - If a PR request would require creating a commit or pushing local changes, stop and ask the user first.
+- Never skip git hooks (`--no-verify`). If the secret check blocks a commit, remove the secret instead.
