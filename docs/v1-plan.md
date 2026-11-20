@@ -28,10 +28,10 @@ Needs: git, an SSH key added to GitHub, and Node 22.18 or newer.
 
 ```
 git clone git@github.com:<owner>/knack.git ~/.local/share/knack
-node ~/.local/share/knack/install.ts
+sh ~/.local/share/knack/install.sh
 ```
 
-The install step:
+The install step is plain `sh`, so it can say clearly when Node is missing or too old. It:
 
 - links `knack` and its short alias `knk` into `~/.local/bin`, and prints the line to add to your shell profile if that folder isn't on your PATH
 - links the bundled skill into `~/.claude/skills/knack` and `~/.agents/skills/knack`, pointing at the files in `~/.local/share/knack`

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
+import { update } from "./update.ts";
 
 const main = (args: string[]) => {
-  const [name] = args;
+  const [name, ...rest] = args;
 
   if (!name || name === "help" || name === "--help" || name === "-h") {
     const width = Math.max(...COMMANDS.map((command) => command.usage.length)) + 2;
@@ -17,12 +18,19 @@ const main = (args: string[]) => {
     return;
   }
 
-  console.error(`"knack ${command.name}" isn't built yet.`);
-  process.exitCode = 1;
+  if (!command.run) {
+    console.error(`"knack ${command.name}" isn't built yet.`);
+    process.exitCode = 1;
+    return;
+  }
+
+  command.run(rest);
 };
 
-const COMMANDS = [
-  { name: "update", usage: "update", summary: "Update knack and its bundled skill" },
+type Command = { name: string; usage: string; summary: string; run?: (args: string[]) => void };
+
+const COMMANDS: Command[] = [
+  { name: "update", usage: "update", summary: "Update knack and its bundled skill", run: update },
   { name: "setup", usage: "setup <repo>", summary: "Bring your skills repo into this folder" },
   { name: "list", usage: "list", summary: "Show your skills and which ones are installed here" },
   { name: "install", usage: "install <names...>", summary: "Link skills into this folder" },
