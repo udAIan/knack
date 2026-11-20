@@ -36,7 +36,7 @@ The install step is plain `sh`, so it can say clearly when Node is missing or to
 - links `knack` and its short alias `knk` into `~/.local/bin`, and prints the line to add to your shell profile if that folder isn't on your PATH
 - links the bundled skill into `~/.claude/skills/knack` and `~/.agents/skills/knack`, pointing at the files in `~/.local/share/knack`
 
-`knack update` pulls `~/.local/share/knack` over SSH, so the CLI and the bundled skill update together.
+`knack update` pulls `~/.local/share/knack` over SSH, so the CLI and the bundled skill update together. It then runs the install step again, so a newer version can add any links it needs.
 
 knack is written in TypeScript that Node runs directly, with no build step and nothing to install from npm to run it. Type definitions for editors are a dev-only extra.
 
