@@ -32,7 +32,9 @@ skills/<name>/
 ### Body
 
 - Write instructions in plain words that work in every agent. Say "read this file" or "run this command", not the name of one agent's tool.
-- Keep `SKILL.md` under 500 lines. Move detail into `references/`, and link to it with relative paths, one level deep.
+- Keep `SKILL.md` under 500 lines. Move detail into `references/`.
+- Link each main reference file from `SKILL.md`, and say when to read it.
+- A reference file may link a file it depends on. Say exactly when to read it.
 - Use relative paths only. Never use paths into `.claude/` or `.agents/`.
 
 ### Tools a skill needs
