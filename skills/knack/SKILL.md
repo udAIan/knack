@@ -1,6 +1,6 @@
 ---
 name: knack
-description: Manage this folder's agent skills with the knack CLI. Use only in folders set up with knack (a session-start note says so, and the skills repo is in .knack/), to install or remove skills, create, change or delete a skill, review or finish a skill change, or pull skill updates. Also use when the user asks to set up a folder with a skills repo.
+description: Use this skill only in folders set up with knack (a session-start note says so, and the skills repo is in .knack/), whenever the user wants to install, remove, create, change or delete a skill, or get newer skills. Trigger when a skill gets something wrong, the user asks to make, fix, add or update a skill, or the session-start note says newer skills are available, including follow-ups such as refining a change, reviewing or merging it, or resolving a conflict, even when the user does not mention knack. Also use it when the user asks to set up a folder with a skills repo.
 compatibility: Requires the knack CLI, git with SSH access to GitHub, and Node 22.18 or newer.
 ---
 
@@ -28,10 +28,10 @@ Run knack commands from the top of the folder.
 - Ask the user before installing anything on their machine, such as a tool a skill needs.
 - If a knack command fails, read its message. It says what went wrong and what to do next.
 
-## Changing, creating or deleting a skill
+## Changing, creating, adding or deleting a skill
 
 When a skill isn't doing what the user needs, or the way the work is done has changed, change the skill with the user. Read [changing skills](references/changing-skills.md) before you start.
 
 ## Writing a skill
 
-Skills must follow the Agent Skills spec exactly and work in every agent. Read [writing skills](references/writing-skills.md) before creating a skill, adding an existing one, or fixing one.
+Skills must follow the Agent Skills spec exactly and work in every agent. Read [writing skills](references/writing-skills.md) whenever you create, change or add a skill, including its description, and keep using it for follow-up reviews and revisions.

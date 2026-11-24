@@ -9,7 +9,9 @@ A change starts from real work, when a skill isn't doing what the user needs or 
 3. Commit each change, and each later refinement, separately: `git -C .knack add -A`, then `git -C .knack commit -m "<message>"`. The message says what went wrong in the work and what changed, for example "Tables came out as plain text; now extract them as CSV".
 4. Suggest that the user try the change in a fresh session, since this chat already knows what they want.
 
-To create a skill, add `.knack/skills/<name>/SKILL.md` (see [writing skills](writing-skills.md)), commit it, and run `knack install <name>` so it's live here.
+To create a skill, add `.knack/skills/<name>/SKILL.md` (see [writing skills](references/writing-skills.md)), commit it, and run `knack install <name>` so it's live here.
+
+Add an existing skill only when the user asks. Copy the skill's folder into `.knack/skills/<name>/`, fix anything that breaks the rules in [writing skills](references/writing-skills.md), and add setup notes if it needs tools. Then commit each skill separately.
 
 To delete a skill everywhere, run `git -C .knack rm -r skills/<name>`, then commit.
 
