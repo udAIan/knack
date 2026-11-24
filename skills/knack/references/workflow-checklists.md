@@ -1,7 +1,8 @@
 # Workflow checklists
 
 - A workflow may contain steps and sub-steps.
-- Require the operating agent to copy the checklist into `progress.md` at the top of the work folder and keep the completion state of every step and sub-step current.
+- Require the operating agent to do each project in its own folder inside the work folder, named after the project, for example `dogs-post/`, so projects can be at different stages at once.
+- Require it to copy the checklist into `progress.md` in that project folder and keep the completion state of every step and sub-step current.
 
 ## State the workflow goal
 

@@ -18,8 +18,11 @@ Creating, adding and deleting a skill follow the same steps, with these differen
 - After committing a new skill, run `knack install <name>` so it's live here.
 - Add an existing skill only when the user asks, because they choose what goes in their skills repo.
 - To add one, copy its folder into `.knack/skills/<name>/`.
-- Fix anything in it that breaks the rules in [writing skills](references/writing-skills.md).
+- Take out any secrets before the first commit, because every commit goes to GitHub.
+- Commit the copy before you change anything else, so the review shows what you changed.
+- Then fix anything in it that breaks the rules in [writing skills](references/writing-skills.md).
 - If an added skill needs tools, add setup notes.
+- Commit those fixes as a second commit.
 - Commit each added skill separately.
 - To delete a skill everywhere, run `git -C .knack rm -r skills/<name>`, then commit.
 
