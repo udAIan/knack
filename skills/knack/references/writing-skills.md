@@ -36,7 +36,7 @@ skills/<name>/
 - Say "read this file" or "run this command", not the name of one agent's tool.
 - Keep `SKILL.md` under 500 lines by moving detail into `references/`.
 - Link each main reference file from `SKILL.md`, and say when to read it.
-- A reference file may link a file it depends on, if it says exactly when to read it.
+- A reference file may link a file it depends on, if it says exactly when to read it. This goes past the spec's one-level advice on purpose.
 - Write every path relative to the skill's folder, even inside reference files, for example `references/models.md`, not `models.md`.
 - Never use paths into `.claude/` or `.agents/`, because each agent uses a different folder.
 
