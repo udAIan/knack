@@ -6,10 +6,11 @@
 
 ## knack details
 
-- Agents find skills through links in `.claude/skills/` and `.agents/skills/`. Create and edit skills only in `.knack/skills/<name>/`.
+- Create and edit skills only in `.knack/skills/<name>/`, because agents reach them through links in `.claude/skills/` and `.agents/skills/`.
 - Every skill follows the [Agent Skills spec](https://agentskills.io/specification) exactly, so it works in any agent.
-- Keep files inside the skill folder; do not add symlinks or path escapes.
-- Never put secrets in a skill.
+- Keep files inside the skill folder.
+- Do not add symlinks or paths that lead outside the skill folder.
+- Never put secrets in a skill, because skills are shared through GitHub.
 - Before you commit, check that the name matches the folder, the description is under 1024 characters, and the frontmatter has only spec fields.
 
 ### Layout
@@ -31,18 +32,21 @@ skills/<name>/
 
 ### Body
 
-- Write instructions in plain words that work in every agent. Say "read this file" or "run this command", not the name of one agent's tool.
-- Keep `SKILL.md` under 500 lines. Move detail into `references/`.
+- Write instructions in plain words that work in every agent.
+- Say "read this file" or "run this command", not the name of one agent's tool.
+- Keep `SKILL.md` under 500 lines by moving detail into `references/`.
 - Link each main reference file from `SKILL.md`, and say when to read it.
-- A reference file may link a file it depends on. Say exactly when to read it.
+- A reference file may link a file it depends on, if it says exactly when to read it.
 - Write every path relative to the skill's folder, even inside reference files, for example `references/models.md`, not `models.md`.
-- Never use paths into `.claude/` or `.agents/`.
+- Never use paths into `.claude/` or `.agents/`, because each agent uses a different folder.
 
 ### Tools a skill needs
 
 - List them in `compatibility`, for example: "Requires jq and the Apify CLI."
 - In `SKILL.md`, add one line: "If a required tool is missing, follow references/setup.md."
-- In `references/setup.md`, give each tool a check command and say what success looks like. Then give install steps for Mac and Linux, each ending with a check. Mark the steps that need the user, such as logins and API keys.
+- In `references/setup.md`, give each tool a check command and say what success looks like.
+- Give install steps for Mac and Linux, each ending with a check.
+- Mark the steps that need the user, such as logins and API keys.
 - Prefer scripts that fetch their own packages, such as `uv run` with inline dependencies or `npx <package>@<version>`, so only base tools need installing.
 
 ## Write concise, reviewable instructions
