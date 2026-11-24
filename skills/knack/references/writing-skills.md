@@ -35,7 +35,8 @@ skills/<name>/
 - Keep `SKILL.md` under 500 lines. Move detail into `references/`.
 - Link each main reference file from `SKILL.md`, and say when to read it.
 - A reference file may link a file it depends on. Say exactly when to read it.
-- Use relative paths only. Never use paths into `.claude/` or `.agents/`.
+- Write every path relative to the skill's folder, even inside reference files, for example `references/models.md`, not `models.md`.
+- Never use paths into `.claude/` or `.agents/`.
 
 ### Tools a skill needs
 
@@ -71,6 +72,14 @@ skills/<name>/
 - Use paragraphs only for brief context that is not itself an instruction.
 - Keep each paragraph to no more than three short sentences.
 
+### What to include
+
+- Write only what is specific to this work, such as its steps, tools, conventions, and tricky cases.
+- Leave out general knowledge, such as what a PDF is or how HTTP works.
+- Name one tool or way to do each thing.
+- Name a second only for a case the first can't handle, for example: "Use pdfplumber to read PDFs. For scanned PDFs, use pytesseract instead."
+- When a rule says always, never or must, add a short reason, for example: "Ask before `knack drop`, because it throws work away."
+
 ## Write effective descriptions
 
 The description decides whether the skill is loaded. Put all activation guidance in it.
@@ -85,6 +94,7 @@ The description decides whether the skill is loaded. Put all activation guidance
 - Include follow-up or resume cases that should continue using the skill.
 - Cover intended requests even when the user does not name the skill.
 - Do not include workflow steps or implementation details.
+- If the skill gets used when it shouldn't, say what it is not for, for example: "Do not use it for editing Excel formulas."
 
 Use this pattern when helpful:
 
@@ -93,6 +103,13 @@ Use this pattern when helpful:
 ## Multi-step workflows
 
 - Read [Workflow checklists](references/workflow-checklists.md) when authoring a skill with dependent steps, validation or approval gates, or work that must resume after an interruption.
+
+## Keep a gotchas list
+
+- Put facts the agent would otherwise get wrong in a `## Gotchas` section in `SKILL.md`.
+- Keep that section in `SKILL.md`, not in a reference file, so the agent reads it before it hits the problem.
+- Write each gotcha as a concrete fact, for example: "The `/health` endpoint returns 200 even when the database is down. Use `/ready` instead."
+- When the user corrects the agent, suggest adding the correction to the list.
 
 ## Make narrow updates
 
